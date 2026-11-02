@@ -60,10 +60,11 @@ Na máquina de destino:
 
 - Ubuntu com GNOME Shell (testado em 24.04 e 26.04).
 - `bash` 4.4+, `dconf`, `gsettings`, `jq`, `rsync`, `fc-cache`.
+- `git` e `git-lfs` — fontes e imagens são armazenadas via Git LFS.
 - Sessão gráfica GNOME ativa (para dconf/gsettings e `gnome-extensions`).
 
 ```bash
-sudo apt install jq rsync fontconfig
+sudo apt install jq rsync fontconfig git-lfs
 ```
 
 O Ubuntu já traz `dconf-cli`, `gsettings` (libglib2.0-bin) e `gnome-shell`.
@@ -103,20 +104,24 @@ Outras opções:
 ### 2. Versionar e transportar
 
 ```bash
+git lfs install          # uma vez por máquina/repositório
 git add -A
 git commit -m "backup: $(date +%F)"
 git remote add origin git@github.com:SEU_USUARIO/linux-personalization.git
 git push -u origin main
 ```
 
-> O repositório tem dezenas de MB por causa dos temas, ícones e fontes.
-> Se for usar `--all-assets` e publicar, considere Git LFS.
+> Fontes e imagens são armazenadas via **Git LFS** (padrões em
+> `.gitattributes`). Scripts, dconf, CSS e SVG continuam no git normal.
+> Confira com `git lfs ls-files`.
 
 ### 3. Aplicar (máquina nova)
 
 ```bash
+git lfs install          # obrigatório antes do clone
 git clone git@github.com:SEU_USUARIO/linux-personalization.git
 cd linux-personalization
+git lfs pull             # garante fontes e imagens baixadas
 
 ./install.sh --dry-run    # mostra tudo sem alterar nada
 ./install.sh              # aplica de verdade
@@ -347,5 +352,6 @@ sudo apt install jq
 - O layout de monitores não é restaurado.
 - Extensões instaladas pela loja do GNOME podem ser atualizadas
   automaticamente e sobrescrever a cópia do repositório.
-- O repositório cresce rápido com `--all-assets`; Git LFS é recomendado nesse
-  caso.
+- O repositório usa Git LFS para fontes e imagens; clones sem `git-lfs`
+  recebem apenas os ponteiros. `--all-assets` aumenta o uso de LFS
+  (o GitHub oferece 1 GB gratuito).
