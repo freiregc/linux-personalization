@@ -1,0 +1,5 @@
+# Diretório temporário usado pelo backup.sh
+.data.tmp.*
+
+# Logs locais
+*.log

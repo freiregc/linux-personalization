@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-02T08:00:57-03:00",
+  "distro": {
+    "id": "ubuntu",
+    "version_id": "24.04",
+    "pretty_name": "Ubuntu 24.04.5 LTS"
+  },
+  "gnome_shell": "46.0",
+  "gnome_major": 46,
+  "session_type": "x11",
+  "hostname": null,
+  "assets": {
+    "all_assets": false,
+    "themes": [
+      "Orchis-Grey-Dark-Compact",
+      "Orchis-Grey-Dark-Compact-hdpi",
+      "Orchis-Grey-Dark-Compact-xhdpi",
+      "Orchis-Grey-Dark"
+    ],
+    "icons": [
+      "Colloid-Grey-Dark"
+    ],
+    "fonts": true,
+    "gtk_theme": "Orchis-Grey-Dark-Compact",
+    "icon_theme": "Colloid-Grey-Dark",
+    "shell_theme": "Orchis-Grey-Dark-Compact",
+    "gtk4_links": [
+      {
+        "name": "gtk.css",
+        "theme": "Orchis-Grey-Dark",
+        "target": "gtk-4.0/gtk.css"
+      },
+      {
+        "name": "assets",
+        "theme": "Orchis-Grey-Dark",
+        "target": "gtk-4.0/assets"
+      },
+      {
+        "name": "gtk-dark.css",
+        "theme": "Orchis-Grey-Dark",
+        "target": "gtk-4.0/gtk-dark.css"
+      }
+    ]
+  },
+  "wallpaper": {
+    "file": "wp2532997-night-mountain-wallpapers.jpg",
+    "original_path": "/home/teddy/Downloads/wp2532997-night-mountain-wallpapers.jpg",
+    "screensaver_file": null,
+    "restore_screensaver": false
+  },
+  "extensions": [
+    {
+      "uuid": "user-theme@gnome-shell-extensions.gcampax.github.com",
+      "name": "User Themes",
+      "version": 60,
+      "shell_version": [
+        "46"
+      ]
+    },
+    {
+      "uuid": "dash-in-panel@fthx",
+      "name": "Dash in Panel",
+      "version": 28,
+      "shell_version": [
+        "46",
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "uuid": "dash-to-dock@micxgx.gmail.com",
+      "name": "Dash to Dock",
+      "version": 109,
+      "shell_version": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "uuid": "blur-my-shell@aunetx",
+      "name": "Blur my Shell",
+      "version": 72,
+      "shell_version": [
+        "46",
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "uuid": "just-perfection-desktop@just-perfection",
+      "name": "Just Perfection",
+      "version": 37,
+      "shell_version": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    }
+  ],
+  "dconf": {
+    "paths": [
+      "/org/gnome/desktop/interface/",
+      "/org/gnome/desktop/background/",
+      "/org/gnome/desktop/screensaver/",
+      "/org/gnome/desktop/wm/preferences/",
+      "/org/gnome/mutter/",
+      "/org/gnome/shell/",
+      "/org/gnome/nautilus/preferences/"
+    ],
+    "ignored": 3
+  },
+  "notes": [
+    "monitors.xml não é copiado: contém conectores e seriais específicos da máquina.",
+    "preferred-monitor-by-connector é removido na restauração; usa o monitor primário.",
+    "Chaves inexistentes na versão de destino são filtradas no install.sh."
+  ]
+}

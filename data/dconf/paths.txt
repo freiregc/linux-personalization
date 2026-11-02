@@ -1,0 +1,7 @@
+/org/gnome/desktop/interface/
+/org/gnome/desktop/background/
+/org/gnome/desktop/screensaver/
+/org/gnome/desktop/wm/preferences/
+/org/gnome/mutter/
+/org/gnome/shell/
+/org/gnome/nautilus/preferences/
