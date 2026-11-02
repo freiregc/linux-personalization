@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "created_at": "2026-11-02T08:00:57-03:00",
+  "created_at": "2026-11-02T08:03:29-03:00",
   "distro": {
     "id": "ubuntu",
     "version_id": "24.04",
@@ -45,7 +45,7 @@
   },
   "wallpaper": {
     "file": "wp2532997-night-mountain-wallpapers.jpg",
-    "original_path": "/home/teddy/Downloads/wp2532997-night-mountain-wallpapers.jpg",
+    "original_path": "/tmp/opencode/fakehome/.local/share/backgrounds/wp2532997-night-mountain-wallpapers.jpg",
     "screensaver_file": null,
     "restore_screensaver": false
   },

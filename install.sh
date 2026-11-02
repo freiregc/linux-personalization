@@ -96,6 +96,9 @@ do_rollback() {
     fi
   done
   ok "dconf e configurações GTK restaurados."
+  if (( DRY_RUN )); then
+    info "(dry-run: nenhuma alteração foi realmente feita)"
+  fi
   warn "Temas, ícones, fontes e extensões copiados NÃO são removidos automaticamente."
   exit 0
 }
@@ -268,7 +271,7 @@ copy_tree() {
       continue
     fi
     run mkdir -p "$dest"
-    run rsync -a "$d" "$dest/"
+    run rsync -a "${d%/}" "$dest/"
     ok "$label: $name"
   done
 }
@@ -434,6 +437,15 @@ fi
 validate_shell_theme() {
   [[ -n $SHELL_THEME ]] || return 0
 
+  if (( GN > 46 )); then
+    local ext_user="$HOME/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com"
+    local ext_sys="/usr/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com"
+    if [[ ! -d $ext_user && ! -d $ext_sys ]]; then
+      warn "extensão user-theme não encontrada; o tema de shell não será aplicado"
+      return 0
+    fi
+  fi
+
   if [[ ! -f "$HOME/.themes/$SHELL_THEME/gnome-shell/gnome-shell.css" ]]; then
     warn "tema de shell '$SHELL_THEME' não encontrado no destino; usando o tema padrão"
     (( DRY_RUN )) || dconf reset /org/gnome/shell/extensions/user-theme/name 2>/dev/null || true
@@ -515,7 +527,11 @@ fi
 if (( ${#SKIPPED_EXT[@]} > 0 )); then
   info "Extensões ignoradas: ${SKIPPED_EXT[*]}"
 fi
-info "Snapshot: ${STATE_DIR}/last-snapshot"
+if [[ -f "$STATE_DIR/last-snapshot" ]]; then
+  info "Snapshot: $(cat "$STATE_DIR/last-snapshot")"
+else
+  info "Snapshot: nenhum"
+fi
 printf '\n'
 
 if [[ "$(session_type)" == "wayland" ]]; then

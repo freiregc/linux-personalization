@@ -93,7 +93,11 @@ dconf_to_absolute() {
       sub(/^\[/, "", s)
       sub(/\]$/, "", s)
       sub(/\/$/, "", s)
-      print "[" p s "]"
+      base=p
+      sub(/\/$/, "", base)
+      sub(/^\//, "", base)
+      if (s == "") print "[" base "]"
+      else print "[" base "/" s "]"
       next
     }
     { print }
@@ -113,7 +117,7 @@ _dconf_key_denied() {
 # porque os schemas delas só são conhecidos depois de instalar as extensões.
 filter_dconf() {
   local infile="$1" outfile="$2" skipped="${3:-/dev/null}"
-  local line section="" schema="" key="" pending="" active=0 printed=0
+  local line section="" schema="" key="" pending="" active=0 printed=0 section_abs=""
   local -A state=() keys_cache=()
 
   : > "$outfile"
@@ -122,11 +126,12 @@ filter_dconf() {
   while IFS= read -r line || [[ -n $line ]]; do
     if [[ $line =~ ^\[(.*)\]$ ]]; then
       section="${BASH_REMATCH[1]}"
+      section_abs="/${section#/}"
       schema="${section#/}"
       schema="${schema%/}"
       schema="${schema//\//.}"
 
-      if [[ $section == /org/gnome/shell/extensions/* ]]; then
+      if [[ $section_abs == /org/gnome/shell/extensions/* ]]; then
         state[$section]="extension"
       elif [[ -z $schema ]]; then
         state[$section]="none"
