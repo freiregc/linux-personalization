@@ -23,7 +23,7 @@ O fluxo é simples:
 | Tema GTK | `~/.themes` | Tema ativo, variantes e temas referenciados pelo GTK4 |
 | Tema de ícones | `~/.icons` / `~/.local/share/icons` | Tema ativo e heranças que também sejam de usuário |
 | Fontes | `~/.local/share/fonts`, `~/.fonts` | Todos os arquivos de fonte do usuário |
-| Wallpaper | `~/.config` (dconf) | A imagem em si é copiada para `data/wallpaper/` |
+| Wallpaper | `~/.config` (dconf) | A imagem é copiada para `data/wallpaper/`; a URI é recriada no destino |
 | Extensões de usuário | `~/.local/share/gnome-shell/extensions` | Código copiado; compatibilidade validada no install |
 | Configurações GTK | `~/.config/gtk-3.0`, `~/.config/gtk-4.0` | `settings.ini` e alvos dos symlinks do GTK4 |
 | Manifesto | — | Versões, data, checksums e lista de arquivos |
@@ -137,7 +137,8 @@ O `install.sh`:
 6. filtra chaves de dconf incompatíveis e aplica;
 7. recria os symlinks do GTK4 quando faz sentido;
 8. resolve conflito de dock e extensões ausentes;
-9. avisa como recarregar o shell.
+9. reaplica o wallpaper por último, depois do dconf, para evitar caminhos absolutos da máquina de origem;
+10. avisa como recarregar o shell.
 
 Depois:
 
@@ -324,6 +325,11 @@ Verifique se a imagem foi copiada e se a URI aponta para o novo home:
 ls ~/.local/share/backgrounds/
 gsettings get org.gnome.desktop.background picture-uri
 ```
+
+O wallpaper não é restaurado através do caminho absoluto original. O script
+sempre usa `~/.local/share/backgrounds/` no destino. As chaves
+`picture-uri` e `picture-uri-dark` são deliberadamente excluídas do dump dconf
+e aplicadas no final da instalação.
 
 **Muitas chaves ignoradas**
 Normal ao restaurar um backup de GNOME 46 em GNOME 50 (ou vice-versa).

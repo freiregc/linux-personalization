@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "created_at": "2026-11-02T08:03:29-03:00",
+  "created_at": "2026-11-15T13:21:58-03:00",
   "distro": {
     "id": "ubuntu",
     "version_id": "24.04",
@@ -8,7 +8,7 @@
   },
   "gnome_shell": "46.0",
   "gnome_major": 46,
-  "session_type": "x11",
+  "session_type": "wayland",
   "hostname": null,
   "assets": {
     "all_assets": false,
@@ -45,7 +45,7 @@
   },
   "wallpaper": {
     "file": "wp2532997-night-mountain-wallpapers.jpg",
-    "original_path": "/tmp/opencode/fakehome/.local/share/backgrounds/wp2532997-night-mountain-wallpapers.jpg",
+    "original_path": null,
     "screensaver_file": null,
     "restore_screensaver": false
   },
@@ -61,19 +61,20 @@
     {
       "uuid": "dash-in-panel@fthx",
       "name": "Dash in Panel",
-      "version": 28,
+      "version": 29,
       "shell_version": [
         "46",
         "47",
         "48",
         "49",
-        "50"
+        "50",
+        "51"
       ]
     },
     {
       "uuid": "dash-to-dock@micxgx.gmail.com",
       "name": "Dash to Dock",
-      "version": 109,
+      "version": 110,
       "shell_version": [
         "45",
         "46",
@@ -87,13 +88,14 @@
     {
       "uuid": "blur-my-shell@aunetx",
       "name": "Blur my Shell",
-      "version": 72,
+      "version": 78,
       "shell_version": [
         "46",
         "47",
         "48",
         "49",
-        "50"
+        "50",
+        "51"
       ]
     },
     {
@@ -121,7 +123,7 @@
       "/org/gnome/shell/",
       "/org/gnome/nautilus/preferences/"
     ],
-    "ignored": 3
+    "ignored": 5
   },
   "notes": [
     "monitors.xml não é copiado: contém conectores e seriais específicos da máquina.",

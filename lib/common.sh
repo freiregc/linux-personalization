@@ -81,6 +81,8 @@ DCONF_DENY_KEYS=(
   welcome-dialog-last-shown-version
   last-version-installed
   preferred-monitor-by-connector
+  picture-uri
+  picture-uri-dark
 )
 
 # Converte um dump relativo ([/]) em seções absolutas ([/org/gnome/.../]).

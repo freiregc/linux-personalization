@@ -3,9 +3,6 @@ color-scheme='default'
 enable-animations=true
 gtk-theme='Orchis-Grey-Dark-Compact'
 icon-theme='Colloid-Grey-Dark'
-[org/gnome/desktop/background]
-picture-uri='file:///tmp/opencode/fakehome/.local/share/backgrounds/wp2532997-night-mountain-wallpapers.jpg'
-picture-uri-dark='file:///tmp/opencode/fakehome/.local/share/backgrounds/wp2532997-night-mountain-wallpapers.jpg'
 [org/gnome/mutter]
 edge-tiling=false
 [org/gnome/mutter/keybindings]
@@ -17,21 +14,18 @@ disabled-extensions=['just-perfection-desktop@just-perfection', 'dash-in-panel@f
 enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'ding@rastersoft.com', 'ubuntu-dock@ubuntu.com', 'tiling-assistant@ubuntu.com', 'dash-to-dock@micxgx.gmail.com', 'blur-my-shell@aunetx']
 favorite-apps=['org.gnome.Nautilus.desktop', 'vivaldi-stable.desktop', 'code.desktop', 'whatsapp-desktop-linux_whatsapp-desktop-linux.desktop', 'discord.desktop']
 [org/gnome/shell/extensions/blur-my-shell]
-pipelines={'pipeline_default': {'name': <'Default'>, 'effects': <[<{'type': <'native_static_gaussian_blur'>, 'id': <'effect_000000000000'>, 'params': <{'radius': <30>, 'brightness': <0.46000000000000002>, 'unscaled_radius': <100>}>}>]>}, 'pipeline_default_rounded': {'name': <'Default rounded'>, 'effects': <[<{'type': <'native_static_gaussian_blur'>, 'id': <'effect_000000000001'>, 'params': <{'radius': <30>, 'brightness': <0.59999999999999998>, 'unscaled_radius': <100>}>}>]>}}
+pipelines={'pipeline_default': {'name': <'Default'>, 'effects': <[<{'type': <'dual_kawase_blur'>, 'id': <'effect_000000000000'>, 'params': <{'unscaled_radius': <100>, 'brightness': <0.46000000000000002>}>}>]>}, 'pipeline_default_rounded': {'name': <'Default rounded'>, 'effects': <[<{'type': <'dual_kawase_blur'>, 'id': <'effect_000000000001'>, 'params': <{'unscaled_radius': <100>, 'brightness': <0.59999999999999998>}>}>]>}, 'pipeline_migrated_dynamic_blur': {'name': <'Migrated dynamic blur'>, 'effects': <[<{'type': <'dual_kawase_blur'>, 'id': <'effect_migrated_dynamic_blur'>, 'params': <{'unscaled_radius': <60>, 'brightness': <0.59999999999999998>}>}>]>}, 'pipeline_liquid_glass': {'name': <'Liquid Glass'>, 'effects': <[<{'type': <'luminosity'>, 'id': <'effect_liquid_glass_luminosity'>, 'params': <{'saturation_multiplicator': <1.1000000000000001>}>}>, <{'type': <'refraction'>, 'id': <'effect_liquid_glass_refraction'>, 'params': <{'tint': <0>}>}>, <{'type': <'noise'>, 'id': <'effect_liquid_glass_noise'>, 'params': <{'noise': <0.10000000000000001>}>}>]>}, 'pipeline_vapor_glass': {'name': <'Vapor Glass'>, 'effects': <[<{'type': <'luminosity'>, 'id': <'effect_vapor_glass_luminosity'>, 'params': <{'saturation_multiplicator': <1.1000000000000001>}>}>, <{'type': <'wave'>, 'id': <'effect_vapor_glass_wave'>, 'params': <@a{sv} {}>}>, <{'type': <'refraction'>, 'id': <'effect_vapor_glass_refraction'>, 'params': <{'tint': <0>}>}>, <{'type': <'noise'>, 'id': <'effect_vapor_glass_noise'>, 'params': <{'noise': <0.10000000000000001>}>}>]>}, 'pipeline_classic_light_background': {'name': <'Classic Light Background'>, 'effects': <[<{'type': <'dual_kawase_blur'>, 'id': <'effect_classic_light_blur'>, 'params': <{'unscaled_radius': <30>, 'brightness': <0.59999999999999998>}>}>, <{'type': <'color'>, 'id': <'effect_classic_light_color'>, 'params': <{'color': <(1.0, 1.0, 1.0, 0.25)>, 'blend_mode': <17>}>}>]>}, 'pipeline_classic_dark_background': {'name': <'Classic Dark Background'>, 'effects': <[<{'type': <'dual_kawase_blur'>, 'id': <'effect_classic_dark_blur'>, 'params': <{'unscaled_radius': <30>, 'brightness': <0.59999999999999998>}>}>, <{'type': <'color'>, 'id': <'effect_classic_dark_color'>, 'params': <{'color': <(0.40000000000000002, 0.40000000000000002, 0.40000000000000002, 0.34999999999999998)>, 'blend_mode': <17>}>}>]>}, 'pipeline_default_light': {'name': <'Default (Light mode)'>, 'effects': <[<{'type': <'dual_kawase_blur'>, 'id': <'effect_default_light_blur'>, 'params': <{'unscaled_radius': <30>, 'brightness': <1>}>}>, <{'type': <'color'>, 'id': <'effect_default_light_color'>, 'params': <{'color': <(1.0, 1.0, 1.0, 0.5)>, 'blend_mode': <3>}>}>]>}}
 rounded-blur-found=false
-settings-version=2
+settings-version=10
 [org/gnome/shell/extensions/blur-my-shell/appfolder]
-brightness=0.59999999999999998
-sigma=30
+pipeline='pipeline_migrated_dynamic_blur'
 [org/gnome/shell/extensions/blur-my-shell/applications]
 pipeline='pipeline_default'
 [org/gnome/shell/extensions/blur-my-shell/coverflow-alt-tab]
 pipeline='pipeline_default'
 [org/gnome/shell/extensions/blur-my-shell/dash-to-dock]
 blur=false
-brightness=0.59999999999999998
 pipeline='pipeline_default_rounded'
-sigma=30
 static-blur=true
 style-dash-to-dock=0
 [org/gnome/shell/extensions/blur-my-shell/lockscreen]
@@ -40,15 +34,14 @@ pipeline='pipeline_default'
 pipeline='pipeline_default'
 [org/gnome/shell/extensions/blur-my-shell/panel]
 blur=false
-brightness=0.59999999999999998
 corner-radius=0
 pipeline='pipeline_default'
-sigma=30
+[org/gnome/shell/extensions/blur-my-shell/popup]
+screenshot-corner-radius=36
 [org/gnome/shell/extensions/blur-my-shell/screenshot]
 pipeline='pipeline_default'
 [org/gnome/shell/extensions/blur-my-shell/window-list]
-brightness=0.59999999999999998
-sigma=30
+pipeline='pipeline_migrated_dynamic_blur'
 [org/gnome/shell/extensions/dash-in-panel]
 button-margin=2
 icon-size=20
@@ -61,6 +54,8 @@ height-fraction=0.90000000000000002
 preferred-monitor=-2
 preview-size-scale=0.0
 transparency-mode='DEFAULT'
+[org/gnome/shell/extensions/ding]
+check-x11wayland=true
 [org/gnome/shell/extensions/just-perfection]
 clock-menu-position=1
 dash-icon-size=0

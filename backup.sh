@@ -310,7 +310,7 @@ jq -n \
   --arg icon_theme "$ICON_THEME" \
   --arg shell_theme "$SHELL_THEME" \
   --arg wallpaper_file "$WALLPAPER_FILE" \
-  --arg wallpaper_original "$WALLPAPER_ORIGINAL" \
+  --arg wallpaper_original "" \
   --arg wallpaper_ss_file "$WALLPAPER_SS_FILE" \
   --argjson wallpaper_screensaver "$([[ -n $WALLPAPER_SS_FILE ]] && echo true || echo false)" \
   --argjson extensions "$EXTENSIONS_JSON" \

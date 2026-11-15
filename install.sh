@@ -243,6 +243,32 @@ maybe_install_packages() {
   done
 }
 
+verify_system_extensions() {
+  local expected uuid
+  local -a missing=()
+  for expected in \
+    appindicator \
+    desktop-icons-ng \
+    ubuntu-dock \
+    ubuntu-tiling-assistant; do
+    case "$expected" in
+      appindicator) uuid="ubuntu-appindicators@ubuntu.com" ;;
+      desktop-icons-ng) uuid="ding@rastersoft.com" ;;
+      ubuntu-dock) uuid="ubuntu-dock@ubuntu.com" ;;
+      ubuntu-tiling-assistant) uuid="tiling-assistant@ubuntu.com" ;;
+    esac
+    if ! gnome-extensions list 2>/dev/null | grep -Fxq "$uuid"; then
+      missing+=("$uuid")
+    fi
+  done
+
+  if (( ${#missing[@]} > 0 )); then
+    warn "extensões de sistema ausentes: ${missing[*]}"
+    return 1
+  fi
+  ok "extensões de sistema verificadas"
+}
+
 if want extensions; then
   log "Verificando extensões de sistema"
   APT_PKGS=(
@@ -255,6 +281,7 @@ if want extensions; then
     APT_PKGS+=(gnome-shell-extension-user-theme)
   fi
   maybe_install_packages "${APT_PKGS[@]}"
+  verify_system_extensions || true
 fi
 
 # ---------------------------------------------------------------------------
@@ -293,21 +320,6 @@ if want fonts; then
     run rsync -a "$DATA_DIR/fonts/" "$HOME/.local/share/fonts/"
     run fc-cache -f "$HOME/.local/share/fonts"
     ok "fontes copiadas e cache atualizado"
-  fi
-fi
-
-if want wallpaper && [[ -n $WALLPAPER_FILE ]]; then
-  log "Aplicando papel de parede"
-  run mkdir -p "$HOME/.local/share/backgrounds"
-  run cp -f "$DATA_DIR/wallpaper/$WALLPAPER_FILE" "$HOME/.local/share/backgrounds/$WALLPAPER_FILE"
-  run gsettings set org.gnome.desktop.background picture-uri "file://$HOME/.local/share/backgrounds/$WALLPAPER_FILE"
-  run gsettings set org.gnome.desktop.background picture-uri-dark "file://$HOME/.local/share/backgrounds/$WALLPAPER_FILE"
-  ok "wallpaper: $WALLPAPER_FILE"
-
-  if [[ -n $WALLPAPER_SS_FILE ]]; then
-    run cp -f "$DATA_DIR/wallpaper/$WALLPAPER_SS_FILE" "$HOME/.local/share/backgrounds/$WALLPAPER_SS_FILE"
-    run gsettings set org.gnome.desktop.screensaver picture-uri "file://$HOME/.local/share/backgrounds/$WALLPAPER_SS_FILE"
-    ok "wallpaper da tela de bloqueio: $WALLPAPER_SS_FILE"
   fi
 fi
 
@@ -392,9 +404,39 @@ install_dconf() {
   rm -f "$sanitized" "$filtered" "$skipped"
 }
 
+# O wallpaper é aplicado depois do dconf. As versões antigas do backup podem
+# conter uma URI absoluta da máquina de origem; reaplicar aqui garante que a
+# URI sempre aponte para o arquivo copiado no HOME do destino.
+apply_wallpaper() {
+  [[ -n $WALLPAPER_FILE ]] || return 0
+  [[ -f "$DATA_DIR/wallpaper/$WALLPAPER_FILE" ]] || {
+    warn "arquivo de wallpaper não encontrado: $DATA_DIR/wallpaper/$WALLPAPER_FILE"
+    return 0
+  }
+
+  run mkdir -p "$HOME/.local/share/backgrounds"
+  run cp -f "$DATA_DIR/wallpaper/$WALLPAPER_FILE" "$HOME/.local/share/backgrounds/$WALLPAPER_FILE"
+  run gsettings set org.gnome.desktop.background picture-uri "file://$HOME/.local/share/backgrounds/$WALLPAPER_FILE"
+  run gsettings set org.gnome.desktop.background picture-uri-dark "file://$HOME/.local/share/backgrounds/$WALLPAPER_FILE"
+  ok "wallpaper: $WALLPAPER_FILE"
+
+  if [[ -n $WALLPAPER_SS_FILE && -f "$DATA_DIR/wallpaper/$WALLPAPER_SS_FILE" ]]; then
+    run cp -f "$DATA_DIR/wallpaper/$WALLPAPER_SS_FILE" "$HOME/.local/share/backgrounds/$WALLPAPER_SS_FILE"
+    run gsettings set org.gnome.desktop.screensaver picture-uri "file://$HOME/.local/share/backgrounds/$WALLPAPER_SS_FILE"
+    ok "wallpaper da tela de bloqueio: $WALLPAPER_SS_FILE"
+  fi
+}
+
 if want dconf; then
   log "Aplicando preferências (dconf)"
   install_dconf
+fi
+
+# Deve ser o último passo das preferências para não ser sobrescrito por uma
+# URI antiga presente em um backup criado por versões anteriores do script.
+if want wallpaper; then
+  log "Confirmando wallpaper após aplicar o dconf"
+  apply_wallpaper
 fi
 
 # ---------------------------------------------------------------------------
