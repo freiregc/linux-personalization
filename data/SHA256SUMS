@@ -1,4 +1,4 @@
-1f91f422e017a25756b0bd8227138ffd22642cc379a5a9ee7321f1b740dbcd60  ./dconf/gnome-appearance.dconf
+4a06806f686e56e16d23d0fcc51cda3d5fb344a59ff8d30a391eb039de90a16e  ./dconf/gnome-appearance.dconf
 fcdb69d1891a92c64499eb97ca50e70e2f069fc0a4b10f60783ac4b83f6de37c  ./dconf/keys.skipped
 77cc01b50f2479a2c2ab717b81784ca47fac072c3d0ef32bfafd7c04fff501df  ./dconf/paths.txt
 b7d4a9ba47c49c364eb4e27111d19341d9bbb55a1add94524c0587889cdd3d63  ./extensions/blur-my-shell@aunetx/components/appfolders.js
@@ -19170,7 +19170,7 @@ f38e7c99a1c40c8586f6715081ded7993713a06e0fece726a63a04bfa711b45b  ./icons/Colloi
 1309e905fd10df348156f9a3504d3382a860d104e5d141ed5fc102f0f8f3c4a6  ./icons/Colloid-Grey-Light/status/symbolic/weather-windy-symbolic.svg
 41ec2c8080ee886959cfc0014ba533f1d5b6e646ad4cd7685c47303d31ddcc30  ./icons/Colloid-Grey-Light/status/symbolic/window-new-symbolic.svg
 efe59793af177506115424dd01ec7f5b12c56d99fcbb255171d7151d27745d55  ./icons/Colloid-Grey-Light/status/symbolic/windows-quick-list-symbolic.svg
-a8f6687633babf4c55577395879d8f610257624922cf3396bac22a96af8565dd  ./manifest.json
+f5edb1af7e5670cbcef9fa99b32456753459689aa2f4a86b8256696738212b8f  ./manifest.json
 18ae67c034ec0cde4d1659d8ff93459f689b3a7399feb1f45e3ac8698cefab82  ./themes/Orchis-Grey-Dark/cinnamon/assets/add-workspace-active.svg
 c94d832384487fcde617748cff98ad4dbdc3eb8d4e1585622429f3cbfd949ace  ./themes/Orchis-Grey-Dark/cinnamon/assets/add-workspace-hover.svg
 b732fb3e7c83fdd636a98e3f420128c29b6dcbfb8b2bd2333a90fd91863f1422  ./themes/Orchis-Grey-Dark/cinnamon/assets/add-workspace.svg
