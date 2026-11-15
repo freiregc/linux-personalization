@@ -311,6 +311,15 @@ fi
 if want icons; then
   log "Aplicando temas de ícones"
   copy_tree "$DATA_DIR/icons" "$HOME/.icons" "ícones"
+  if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+    while IFS= read -r icon_theme; do
+      [[ -d $icon_theme ]] || continue
+      run gtk-update-icon-cache -f -t "$icon_theme"
+    done < <(find "$DATA_DIR/icons" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort | sed "s#^#$HOME/.icons/#")
+    ok "cache dos temas de ícones atualizado"
+  else
+    warn "gtk-update-icon-cache não encontrado; o GNOME pode atualizar o cache ao relogar"
+  fi
 fi
 
 if want fonts; then
