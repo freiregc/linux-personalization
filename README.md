@@ -83,7 +83,8 @@ cd linux-personalization
 O padrão copia **somente o que está em uso** (~57 MB neste setup):
 
 - tema ativo + variantes + temas usados pelos symlinks do GTK4;
-- tema de ícones ativo + heranças de usuário;
+- tema de ícones ativo + heranças e variantes de usuário referenciadas por
+  links simbólicos;
 - todas as fontes do usuário;
 - wallpaper e, se for customizado, o da tela de bloqueio.
 
@@ -330,6 +331,18 @@ O wallpaper não é restaurado através do caminho absoluto original. O script
 sempre usa `~/.local/share/backgrounds/` no destino. As chaves
 `picture-uri` e `picture-uri-dark` são deliberadamente excluídas do dump dconf
 e aplicadas no final da instalação.
+
+**Alguns ícones não aparecem**
+Alguns temas possuem links simbólicos entre variantes, como
+`Colloid-Grey-Dark/apps/scalable` apontando para `Colloid-Grey-Light`. O
+`backup.sh` detecta essas variantes e inclui os dois temas no backup. Depois
+de atualizar o repositório, aplique novamente com:
+
+```bash
+git pull origin main
+git lfs pull
+./install.sh --yes --overwrite-assets
+```
 
 **Muitas chaves ignoradas**
 Normal ao restaurar um backup de GNOME 46 em GNOME 50 (ou vice-versa).

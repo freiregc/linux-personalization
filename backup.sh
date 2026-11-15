@@ -179,6 +179,25 @@ collect_icon() {
   fi
 
   ICON_NAMES+=("$n")
+
+  # Alguns temas, como Colloid-Grey-Dark, apontam partes do tema para outra
+  # variante (por exemplo, Colloid-Grey-Light). Incluímos a variante alvo no
+  # backup para que o link relativo continue válido no destino.
+  while IFS= read -r link; do
+    target="$(readlink -f "$link" 2>/dev/null || true)"
+    [[ -e $target ]] || continue
+    case "$target" in
+      "$HOME/.icons/"*)
+        rel="${target#"$HOME/.icons/"}"
+        collect_icon "${rel%%/*}"
+        ;;
+      "$HOME/.local/share/icons/"*)
+        rel="${target#"$HOME/.local/share/icons/"}"
+        collect_icon "${rel%%/*}"
+        ;;
+    esac
+  done < <(find "$base" -type l -print 2>/dev/null)
+
   rsync -a "$base/" "$TMP/icons/$n/"
 
   # Copia heranças que também sejam de usuário (hicolor/breeze ficam no sistema).
@@ -202,6 +221,12 @@ if (( ${#ICON_NAMES[@]} )); then
 else
   warn "tema de ícones '$ICON_THEME' não está em ~/.icons nem em ~/.local/share/icons"
 fi
+
+while IFS= read -r broken; do
+  [[ -n $broken ]] || continue
+  warn "removendo link de ícone sem destino: ${broken#"$TMP/icons/"}"
+  rm -f "$broken"
+done < <(find "$TMP/icons" -type l ! -exec test -e '{}' \; -print 2>/dev/null)
 
 # ---------------------------------------------------------------------------
 # 5. Fontes
